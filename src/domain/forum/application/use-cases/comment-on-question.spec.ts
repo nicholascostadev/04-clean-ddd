@@ -1,0 +1,39 @@
+import { makeQuestion } from "test/factories/make-question";
+import { InMemoryQuestionCommentsRepository } from "test/repositories/in-memory-question-comments-repository";
+import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questions-repository";
+import { CommentOnQuestionCase } from "./comment-on-question";
+
+let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
+let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository;
+let sut: CommentOnQuestionCase;
+
+describe("Comment on Question", () => {
+	beforeEach(() => {
+		inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
+		inMemoryQuestionCommentsRepository =
+			new InMemoryQuestionCommentsRepository();
+		sut = new CommentOnQuestionCase(
+			inMemoryQuestionsRepository,
+			inMemoryQuestionCommentsRepository,
+		);
+	});
+
+	it("should be able to comment on a question", async () => {
+		const question = makeQuestion();
+
+		await inMemoryQuestionsRepository.create(question);
+
+		await sut.execute({
+			authorId: question.authorId.toString(),
+			questionId: question.id.toString(),
+			content: "Test comment",
+		});
+
+		expect(inMemoryQuestionCommentsRepository.items).toHaveLength(1);
+		expect(inMemoryQuestionCommentsRepository.items[0]).toEqual(
+			expect.objectContaining({
+				content: "Test comment",
+			}),
+		);
+	});
+});
