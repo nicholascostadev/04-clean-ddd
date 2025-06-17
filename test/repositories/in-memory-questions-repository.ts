@@ -4,6 +4,14 @@ import type { Question } from "@/domain/forum/enterprise/entities/question";
 export class InMemoryQuestionsRepository implements QuestionsRepository {
 	items: Question[] = [];
 
+	async save(question: Question) {
+		const questionIndex = this.items.findIndex(
+			(item) => item.id === question.id,
+		);
+
+		this.items[questionIndex] = question;
+	}
+
 	async create(question: Question) {
 		this.items.push(question);
 	}
