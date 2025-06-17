@@ -21,6 +21,10 @@ export abstract class Comment<
 		this.touch();
 	}
 
+	get authorId() {
+		return this.props.authorId;
+	}
+
 	get createdAt() {
 		return this.props.createdAt;
 	}

@@ -9,4 +9,20 @@ export class InMemoryQuestionCommentsRepository
 	async create(questionComment: QuestionComment) {
 		this.items.push(questionComment);
 	}
+
+	async findById(id: string) {
+		const questionComment = this.items.find(
+			(item) => item.id.toString() === id,
+		);
+
+		return questionComment ?? null;
+	}
+
+	async delete(questionComment: QuestionComment) {
+		const questionCommentIndex = this.items.findIndex(
+			(item) => item.id === questionComment.id,
+		);
+
+		this.items.splice(questionCommentIndex, 1);
+	}
 }
