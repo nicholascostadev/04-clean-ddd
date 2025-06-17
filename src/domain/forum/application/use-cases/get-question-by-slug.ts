@@ -1,7 +1,7 @@
 import { type Either, left, right } from "@/core/either";
+import { ResourceNotFoundException } from "@/core/exceptions/resource-not-found-exception";
 import type { Question } from "../../enterprise/entities/question";
 import type { QuestionsRepository } from "../repositories/questions-repository";
-import { ResourceNotFoundException } from "./exceptions/resource-not-found-exception";
 
 type GetQuestionBySlugUseCaseRequest = {
 	slug: string;

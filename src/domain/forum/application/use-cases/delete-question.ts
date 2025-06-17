@@ -1,7 +1,7 @@
 import { type Either, left, right } from "@/core/either";
+import { NotAllowedException } from "@/core/exceptions/not-allowed-error";
+import { ResourceNotFoundException } from "@/core/exceptions/resource-not-found-exception";
 import type { QuestionsRepository } from "../repositories/questions-repository";
-import { NotAllowedException } from "./exceptions/not-allowed-error";
-import { ResourceNotFoundException } from "./exceptions/resource-not-found-exception";
 
 interface DeleteQuestionUseCaseRequest {
 	authorId: string;

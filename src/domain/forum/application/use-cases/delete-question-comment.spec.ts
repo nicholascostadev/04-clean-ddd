@@ -1,8 +1,8 @@
 import { UniqueEntityId } from "@/core/entities/unique-entity-id";
+import { NotAllowedException } from "@/core/exceptions/not-allowed-error";
 import { makeQuestionComment } from "test/factories/make-question-comment";
 import { InMemoryQuestionCommentsRepository } from "test/repositories/in-memory-question-comments-repository";
 import { DeleteQuestionCommentUseCase } from "./delete-question-comment";
-import { NotAllowedException } from "./exceptions/not-allowed-error";
 
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository;
 let sut: DeleteQuestionCommentUseCase;

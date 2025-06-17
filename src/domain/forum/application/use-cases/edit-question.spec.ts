@@ -1,11 +1,11 @@
 import { UniqueEntityId } from "@/core/entities/unique-entity-id";
+import { NotAllowedException } from "@/core/exceptions/not-allowed-error";
 import { makeQuestion } from "test/factories/make-question";
 import { makeQuestionAttachment } from "test/factories/make-question-attachment";
 import { InMemoryQuestionAttachmentsRepository } from "test/repositories/in-memory-question-attachments-repository";
 import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questions-repository";
 import { Slug } from "../../enterprise/entities/value-objects/slug";
 import { EditQuestionUseCase } from "./edit-question";
-import { NotAllowedException } from "./exceptions/not-allowed-error";
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;

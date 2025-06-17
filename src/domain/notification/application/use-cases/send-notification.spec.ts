@@ -1,17 +1,17 @@
 import { InMemoryNotificationsRepository } from "test/repositories/in-memory-notifications-repository";
 import { SendNotificationUseCase } from "./send-notification";
 
-let notificationsRepository: InMemoryNotificationsRepository;
-let sendNotification: SendNotificationUseCase;
+let inMemoryNotificationsRepository: InMemoryNotificationsRepository;
+let sut: SendNotificationUseCase;
 
 describe("Send Notification", () => {
 	beforeEach(() => {
-		notificationsRepository = new InMemoryNotificationsRepository();
-		sendNotification = new SendNotificationUseCase(notificationsRepository);
+		inMemoryNotificationsRepository = new InMemoryNotificationsRepository();
+		sut = new SendNotificationUseCase(inMemoryNotificationsRepository);
 	});
 
 	it("should be able to send a notification", async () => {
-		const result = await sendNotification.execute({
+		const result = await sut.execute({
 			recipientId: "1",
 			title: "Notification title",
 			content: "Notification content",
