@@ -3,6 +3,7 @@ import { makeQuestion } from "test/factories/make-question";
 import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questions-repository";
 import { Slug } from "../../enterprise/entities/value-objects/slug";
 import { EditQuestionUseCase } from "./edit-question";
+import { NotAllowedException } from "./exceptions/not-allowed-error";
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let sut: EditQuestionUseCase;
@@ -21,13 +22,14 @@ describe("Edit Question", () => {
 
 		await inMemoryQuestionsRepository.create(newQuestion);
 
-		await sut.execute({
+		const result = await sut.execute({
 			authorId: "author-1",
 			questionId: newQuestion.id.toString(),
 			title: "New title",
 			content: "New content",
 		});
 
+		expect(result.isRight()).toBe(true);
 		expect(inMemoryQuestionsRepository.items).toHaveLength(1);
 		expect(inMemoryQuestionsRepository.items[0]).toEqual(
 			expect.objectContaining({
@@ -44,13 +46,14 @@ describe("Edit Question", () => {
 
 		await inMemoryQuestionsRepository.create(newQuestion);
 
-		await expect(
-			sut.execute({
-				authorId: "author-2",
-				questionId: newQuestion.id.toString(),
-				title: "New title",
-				content: "New content",
-			}),
-		).rejects.toBeInstanceOf(Error);
+		const result = await sut.execute({
+			authorId: "author-2",
+			questionId: newQuestion.id.toString(),
+			title: "New title",
+			content: "New content",
+		});
+
+		expect(result.isLeft()).toBe(true);
+		expect(result.value).toBeInstanceOf(NotAllowedException);
 	});
 });

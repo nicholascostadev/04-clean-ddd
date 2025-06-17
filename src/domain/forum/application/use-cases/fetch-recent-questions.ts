@@ -1,3 +1,4 @@
+import { type Either, right } from "@/core/either";
 import type { Question } from "../../enterprise/entities/question";
 import type { QuestionsRepository } from "../repositories/questions-repository";
 
@@ -5,9 +6,12 @@ type FetchRecentQuestionsUseCaseRequest = {
 	page: number;
 };
 
-interface FetchRecentQuestionsUseCaseResponse {
-	questions: Question[];
-}
+type FetchRecentQuestionsUseCaseResponse = Either<
+	null,
+	{
+		questions: Question[];
+	}
+>;
 
 export class FetchRecentQuestionsUseCase {
 	constructor(private questionsRepository: QuestionsRepository) {}
@@ -19,8 +23,8 @@ export class FetchRecentQuestionsUseCase {
 			page,
 		});
 
-		return {
+		return right({
 			questions,
-		};
+		});
 	}
 }
