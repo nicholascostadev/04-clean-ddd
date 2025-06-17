@@ -2,11 +2,11 @@ import { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import { Question } from "../../enterprise/entities/question";
 import type { QuestionsRepository } from "../repositories/questions-repository";
 
-type CreateQuestionUseCaseRequest = {
+interface CreateQuestionUseCaseRequest {
 	authorId: string;
 	title: string;
 	content: string;
-};
+}
 
 interface CreateQuestionUseCaseResponse {
 	question: Question;
