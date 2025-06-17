@@ -7,15 +7,17 @@ import { Slug } from "../../enterprise/entities/value-objects/slug";
 import { EditQuestionUseCase } from "./edit-question";
 import { NotAllowedException } from "./exceptions/not-allowed-error";
 
-let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
+let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let sut: EditQuestionUseCase;
 
 describe("Edit Question", () => {
 	beforeEach(() => {
-		inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
 		inMemoryQuestionAttachmentsRepository =
 			new InMemoryQuestionAttachmentsRepository();
+		inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+			inMemoryQuestionAttachmentsRepository,
+		);
 		sut = new EditQuestionUseCase(
 			inMemoryQuestionsRepository,
 			inMemoryQuestionAttachmentsRepository,

@@ -1,9 +1,14 @@
 import type { PaginationParams } from "@/core/repositories/pagination-params";
+import type { QuestionAttachmentsRepository } from "@/domain/forum/application/repositories/question-attachments-repository";
 import type { QuestionsRepository } from "@/domain/forum/application/repositories/questions-repository";
 import type { Question } from "@/domain/forum/enterprise/entities/question";
 
 export class InMemoryQuestionsRepository implements QuestionsRepository {
 	items: Question[] = [];
+
+	constructor(
+		private questionAttachmentsRepository: QuestionAttachmentsRepository,
+	) {}
 
 	async save(question: Question) {
 		const questionIndex = this.items.findIndex(
@@ -51,5 +56,9 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 		);
 
 		this.items.splice(questionIndex, 1);
+
+		await this.questionAttachmentsRepository.deleteManyByQuestionId(
+			question.id.toString(),
+		);
 	}
 }
