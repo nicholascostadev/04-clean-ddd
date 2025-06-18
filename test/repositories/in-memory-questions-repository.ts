@@ -1,3 +1,4 @@
+import { DomainEvents } from "@/core/events/domain-events";
 import type { PaginationParams } from "@/core/repositories/pagination-params";
 import type { QuestionAttachmentsRepository } from "@/domain/forum/application/repositories/question-attachments-repository";
 import type { QuestionsRepository } from "@/domain/forum/application/repositories/questions-repository";
@@ -16,10 +17,14 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 		);
 
 		this.items[questionIndex] = question;
+
+		DomainEvents.dispatchEventsForAggregate(question.id);
 	}
 
 	async create(question: Question) {
 		this.items.push(question);
+
+		DomainEvents.dispatchEventsForAggregate(question.id);
 	}
 
 	async findBySlug(slug: string) {
