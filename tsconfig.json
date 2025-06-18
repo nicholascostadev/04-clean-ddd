@@ -1,21 +1,22 @@
 {
-	"$schema": "https://json.schemastore.org/tsconfig",
-	"display": "Node 23",
-	"_version": "23.0.0",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 23",
+  "_version": "23.0.0",
 
-	"compilerOptions": {
-		"lib": ["es2024"],
-		"module": "nodenext",
-		"target": "es2024",
-		"baseUrl": ".",
-		"paths": {
-			"@/*": ["./src/*"]
-		},
+  "compilerOptions": {
+    "lib": ["es2024"],
+    "module": "nodenext",
+    "target": "es2024",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
 
-		"strict": true,
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"moduleResolution": "node16",
-		"types": ["vitest/globals"]
-	}
+    "strict": true,
+    "strictBindCallApply": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node16",
+    "types": ["vitest/globals"]
+  }
 }
